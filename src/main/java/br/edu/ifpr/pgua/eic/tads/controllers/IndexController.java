@@ -10,7 +10,7 @@ import io.javalin.http.Handler;
 
 public class IndexController {
     
-    public Handler get = (Context ctx)->{
+    public void get(Context ctx){
         ctx.render("index.html");
     };
 
