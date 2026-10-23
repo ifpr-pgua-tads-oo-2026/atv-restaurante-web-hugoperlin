@@ -19,6 +19,9 @@ public final class Usuario extends Pessoa{
         this.movimentacoes = new RegistroOperacoes();
     }
 
+    public String getTelefone(){
+        return telefone;
+    }
     
     public boolean inserirCredito(double valor){
         if(valor > 0){

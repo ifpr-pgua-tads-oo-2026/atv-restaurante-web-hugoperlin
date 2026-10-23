@@ -120,6 +120,11 @@ public class Restaurante {
         return usuario.gerarExtrato();
     }
 
+
+    public ArrayList<Usuario> getUsuarios(){
+        return usuarios;
+    }
+
     public String listar(){
 
         String texto="Usuários Cadastrados\n";
