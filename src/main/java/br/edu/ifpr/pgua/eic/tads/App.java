@@ -12,10 +12,24 @@ import io.javalin.Javalin;
  *
  */
 public class App {
+
+    private static void povoarUsuarios(Restaurante restaurante){
+        for(int i=0;i<10;i++){
+            String nome = "Usuario "+i;
+            String email = "usuario"+i+"@teste.com";
+            String cpf = "123.456.789-"+i;
+            String telefone = "123-11"+i;
+
+            restaurante.cadastrarUsuario(nome, email, telefone, cpf);
+        }
+    }
+
+
     public static void main( String[] args ){
         var app = JavalinUtils.makeApp(8080);
         
         Restaurante restaurante = new Restaurante();
+        povoarUsuarios(restaurante);
 
         IndexController indexController = new IndexController();
         UsuarioController usuariosController = new UsuarioController(restaurante);
@@ -25,6 +39,7 @@ public class App {
 
         app.get("/usuarios/cadastro",usuariosController::get);
         app.post("/usuarios/cadastro",usuariosController::post);
+        app.get("/usuarios/listar",usuariosController::listar);
 
         app.get("/funcionarios/cadastro",funcionariosController::get);
         app.post("/funcionarios/cadastro",funcionariosController::post);

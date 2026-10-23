@@ -20,7 +20,7 @@ public class FuncionarioController {
         String nome = ctx.formParam("nome");
         String email = ctx.formParam("email");
         String cpf = ctx.formParam("cpf");
-        Double salario = Double.parseDouble(ctx.formParam("salario"));
+        Double salario = Double.valueOf(ctx.formParam("salario"));
         String turno = ctx.formParam("turno");
         String cargo = ctx.formParam("cargo");
 

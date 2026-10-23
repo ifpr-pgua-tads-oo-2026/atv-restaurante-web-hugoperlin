@@ -18,8 +18,11 @@
         </nav>
     </header>
     <main class="container">
+
         <section class="card">
             <h2>Cadastrar Novo Usuário</h2>
+            <h3 th:if="${mensagem}" th:text="${mensagem}"></h3>
+
             <form action="/usuarios/cadastro" method="post" class="form-grid">
                 <div class="form-group">
                     <label for="nome">Nome Completo:</label>
