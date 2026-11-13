@@ -2,19 +2,23 @@ package br.edu.ifpr.pgua.eic.tads.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.github.hugoperlin.results.Resultado;
 
 import br.edu.ifpr.pgua.eic.tads.models.Restaurante;
 import br.edu.ifpr.pgua.eic.tads.models.entities.Usuario;
+import br.edu.ifpr.pgua.eic.tads.models.repositories.UsuarioRepository;
 import io.javalin.http.Context;
 
 public class UsuarioController {
     
 
-    private Restaurante restaurante;
+    private UsuarioRepository repositorio;
 
-    public UsuarioController(Restaurante restaurante){
-        this.restaurante = restaurante;
+    public UsuarioController(UsuarioRepository repositorio){
+        this.repositorio = repositorio;
     }
 
     public void get(Context ctx){
@@ -28,29 +32,44 @@ public class UsuarioController {
         String email = ctx.formParam("email");
         String telefone = ctx.formParam("telefone");
 
-        Boolean ret = restaurante.cadastrarUsuario(nome, email, telefone, cpf);
+
+        Resultado<Usuario> res = repositorio.criar(nome, cpf, email, telefone);
 
         String mensagem;
-        if(ret){
-            mensagem = "Usuário cadastrado com sucesso!";
+        String tipoMensagem;
+        if(res.foiSucesso()){
+            Usuario u = res.comoSucesso().getObj();
+            mensagem = res.getMsg();
+            tipoMensagem = "sucesso";
         }else{
-            mensagem = "Erro ao cadastrar usuário!";
+            mensagem = res.getMsg();
+            tipoMensagem = "erro";
         }
 
 
         Map<String,Object> dados = new HashMap<>();
 
         dados.put("mensagem",mensagem);
+        dados.put("tipoMensagem",tipoMensagem);
 
         ctx.render("/usuarios/cadastro.html",dados);
     }
 
     public void listar(Context ctx){
 
-        ArrayList<Usuario> usuarios = restaurante.getUsuarios();
+        Resultado<List<Usuario>> res = repositorio.listar();
 
-        Map<String,Object> dados = Map.of("usuarios",usuarios);
+        Map<String,Object> dados = new HashMap<>();
 
+        
+        if(res.foiSucesso()){
+            List<Usuario> lista = res.comoSucesso().getObj();
+            dados.put("usuarios", lista);
+        }else{
+            dados.put("mensagem",res.getMsg());
+        }
+        
+        
         ctx.render("/usuarios/lista.html",dados);
     }
 

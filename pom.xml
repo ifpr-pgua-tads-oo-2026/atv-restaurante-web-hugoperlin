@@ -19,7 +19,34 @@
   </properties>
 
 
+    <!-- Esse trecho deve ser inserido antes da seção <dependencies> -->
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+
   <dependencies>
+
+        <!-- Esse trecho deve ser inserido na seção <dependencies> -->
+    <dependency>
+      <groupId>com.github.hugoperlin</groupId>
+      <artifactId>results</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
+
+
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>dotenv-java</artifactId>
+      <version>2.2.4</version>
+    </dependency>
+
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

@@ -44,9 +44,9 @@ public class Restaurante {
     public boolean cadastrarUsuario(String nome, String email, 
                                     String telefone, String cpf){
         
-        String url = "jdbc:sqlite:app.db";
+        
 
-        try(Connection con=DriverManager.getConnection(url)){
+        try(Connection con=FabricaConexoes.getInstance().getConnection()){
 
             String sql = "INSERT INTO oo_usuario(nome,cpf,telefone,email) VALUES (?,?,?,?)";
 
